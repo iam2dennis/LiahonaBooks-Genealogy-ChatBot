@@ -1,62 +1,21 @@
-import React, { useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import CopyIcon from './icons/CopyIcon';
-import PrintIcon from './icons/PrintIcon';
 
-interface ChatResponseProps {
-  response: string;
-  onReset: () => void;
-}
+import React from 'react';
 
-const ChatResponse: React.FC<ChatResponseProps> = ({ response, onReset }) => {
-  const [copied, setCopied] = useState(false);
+const CopyIcon: React.FC = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+    />
+  </svg>
+);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(response).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  return (
-    <div className="bg-white rounded-xl shadow-lg animate-fade-in print:shadow-none print:border-none">
-      <div id="printable-area" className="p-8">
-        <h2 className="text-2xl font-bold text-stone-700 mb-4 print:text-black">Here's your answer:</h2>
-        <div 
-          className="prose prose-stone max-w-none text-stone-800"
-        >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{response}</ReactMarkdown>
-        </div>
-      </div>
-      <div className="bg-stone-50 p-4 flex flex-wrap gap-4 justify-end rounded-b-xl print:hidden">
-        <button
-          onClick={handleCopy}
-          className="flex items-center gap-2 bg-stone-200 text-stone-700 font-semibold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors"
-        >
-          <CopyIcon />
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 bg-stone-200 text-stone-700 font-semibold py-2 px-4 rounded-lg hover:bg-stone-300 transition-colors"
-        >
-          <PrintIcon />
-          Print
-        </button>
-        <button
-          onClick={onReset}
-          className="bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors"
-        >
-          Ask Another Question
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default ChatResponse;
+export default CopyIcon;
