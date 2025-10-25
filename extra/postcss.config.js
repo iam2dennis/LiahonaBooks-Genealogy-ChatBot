@@ -1,6 +1,7 @@
-export default {
+xtraexport default {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
 }
+
